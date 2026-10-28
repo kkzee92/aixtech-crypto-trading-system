@@ -1,0 +1,4 @@
+timestamp,open,high,low,close,volume
+2024-01-01,42000,43000,41500,42500,1000
+2024-01-02,42500,44000,42000,43500,1200
+# SYNTHETIC DATA - not real market prices
