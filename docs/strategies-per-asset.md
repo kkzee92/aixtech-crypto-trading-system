@@ -1,27 +1,33 @@
-# Trading Strategies per Asset Class
+# Trading Strategies per Asset Class (Enhanced)
 
-All strategies produce **informational signals only**. No order execution.
+All strategies produce **informational signals only**. No order execution, no API trading keys required for core logic.
 
-## Bitcoin (BTC) - Store of value / macro trend
-- Primary: SMA crossover (5/20)
-- Rationale: BTC often exhibits stronger trends; persistence of direction.
-- Risk: High drawdowns possible; use volatility filter in production.
+## Bitcoin (BTC) - Digital Gold / Macro Trend Asset
+- **Primary**: Adaptive SMA crossover (5/20) with ATR volatility filter.
+- **Secondary**: RSI divergence on higher timeframes for confirmation.
+- **Rationale**: BTC exhibits strong trend persistence driven by institutional flows and macro liquidity. Volatility filter reduces whipsaws in choppy regimes.
+- **Risk controls**: Position size scaled by inverse ATR; hard drawdown alerts.
 
-## Ethereum (ETH) - Smart contract platform / DeFi beta
-- Primary: Rate-of-change momentum confirmed by volume spike
-- Rationale: ETH reacts to network activity and DeFi flows; volume confirms conviction.
+## Ethereum (ETH) - Smart Contract Platform / DeFi Beta
+- **Primary**: Momentum (ROC) + on-chain activity proxy (volume + funding rate stub).
+- **Enhancement**: Gas fee regime detection (high gas = congestion = caution).
+- **Rationale**: ETH is more sensitive to network usage, DeFi TVL changes, and staking flows than pure price trends.
 
-## Large/mid-cap Alts
-- Primary: Bollinger-band mean reversion
-- Rationale: Higher relative volatility; more frequent mean-reverting moves after extremes.
+## Large/Mid-cap Alts (e.g., SOL, AVAX, LINK)
+- **Primary**: Bollinger Band mean reversion + relative strength vs BTC.
+- **Enhancement**: Correlation filter — only mean-revert when BTC is ranging.
+- **Rationale**: Alts have higher beta and mean-reversion frequency after extreme moves relative to BTC.
 
-## Stablecoins
-- Informational only: monitor depeg spreads and yield differentials.
-- No directional trading; focus on risk alerts.
+## Stablecoins & Yield Monitoring
+- Informational only: depeg detection (price vs $1), yield spread alerts across protocols (stub).
+- No directional trading; pure risk monitoring.
 
-## Enhancement roadmap
-- Multi-timeframe confirmation
-- Regime detection (trend vs range)
-- Correlation filters across assets
-- Backtest harness with synthetic regimes
-- Integration with risk module for position sizing
+## Cross-asset enhancements
+- Regime classifier (trend / range / high-vol) shared across assets.
+- Portfolio-level risk: max correlated exposure.
+- Backtest harness using synthetic regimes (bull, bear, sideways, crash).
+
+## Next steps for production (out of scope for this demo)
+- Multi-exchange data aggregation with signed requests.
+- Real-time websocket adapters (injected).
+- Independent risk engine with circuit breakers.
